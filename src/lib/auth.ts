@@ -1,0 +1,32 @@
+import "server-only";
+import { redirect } from "next/navigation";
+import { hasSupabase } from "@/lib/env";
+import { supabaseServer } from "@/lib/supabase/server";
+
+export async function getSession() {
+  if (!hasSupabase) return { user: null, profile: null, subscription: null };
+  const sb = await supabaseServer();
+  const { data: { user } } = await sb.auth.getUser();
+  if (!user) return { user: null, profile: null, subscription: null };
+  const [{ data: profile }, { data: subscription }] = await Promise.all([
+    sb.from("profiles").select("*").eq("id", user.id).maybeSingle(),
+    sb.from("subscriptions").select("*").eq("user_id", user.id).order("created_at", { ascending: false }).limit(1).maybeSingle(),
+  ]);
+  return { user, profile, subscription };
+}
+
+export async function requireMember() {
+  const s = await getSession();
+  if (!s.user) redirect("/entrar?voltar=/membros");
+  const isAdmin = s.profile?.role === "admin";
+  const active = ["active", "past_due"].includes(s.subscription?.status ?? "");
+  if (!isAdmin && !active) redirect("/minha-conta");
+  return s;
+}
+
+export async function requireAdmin() {
+  const s = await getSession();
+  if (!s.user) redirect("/entrar?voltar=/admin");
+  if (s.profile?.role !== "admin") redirect("/");
+  return s;
+}
