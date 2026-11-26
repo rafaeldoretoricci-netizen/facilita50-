@@ -5,19 +5,19 @@ Plataforma de livros, cursos e comunidade para o público 50+, de J. Ricardo Tem
 - **Página inicial:** livro de lançamento em destaque, vitrine com os outros livros (pode ser escondida) e convite para a Comunidade Facilita 50+.
 - **Loja de livros:** impresso (com endereço e frete fixo) ou digital (download protegido), pago no Mercado Pago com Pix, cartão ou boleto.
 - **Comunidade:** cadastro e assinatura mensal recorrente no cartão pelo Mercado Pago. O acesso é liberado sozinho quando o pagamento é confirmado.
-- **Área de membros:** fileiras no estilo Netflix com aulas em vídeo, entrevistas, livros digitais e artigos.
+- **Área de membros (estilo streaming):** destaque no topo, "Continue assistindo" com barra de progresso, fileiras por categoria com setas, catálogo com filtros, página do curso com lista de aulas e página da aula com "concluí esta aula" e próxima aula. Também mostra livros digitais e artigos.
 - **Minha conta:** situação da assinatura, histórico de pagamentos e cancelamento.
 - **Painel do administrador** (`/admin`): receita do mês, pedidos de livros (com "marcar como enviado"), vitrine (trocar lançamento, mostrar ou esconder livros, preços, capas e arquivos), conteúdos dos membros e lista de assinantes com situação de pagamento.
 
 Tecnologia: Next.js 16 (hospedado na Vercel), Supabase (login, banco de dados e arquivos) e Mercado Pago.
 
-Sem as chaves configuradas, o site abre em modo demonstração: a página inicial e a loja mostram os livros de exemplo, mas compras, cadastro e áreas logadas ficam desativados.
+Sem as chaves configuradas, o site abre em modo demonstração: a página inicial, a loja e a área de membros mostram conteúdos de exemplo, mas compras, cadastro e o painel ficam desativados.
 
 ## Como colocar no ar
 
 ### 1. Supabase
 1. Crie um projeto em [supabase.com](https://supabase.com) (região São Paulo).
-2. Em **SQL Editor**, rode o arquivo `supabase/migrations/0001_estrutura_inicial.sql`. Ele cria as tabelas, as regras de segurança, os espaços de arquivos e os livros iniciais.
+2. Em **SQL Editor**, rode os arquivos de `supabase/migrations/` em ordem (`0001`, depois `0002`). Ele cria as tabelas, as regras de segurança, os espaços de arquivos e os livros iniciais.
 3. Em **Authentication > URL Configuration**, coloque o endereço do site em *Site URL* e adicione `https://SEU-SITE/auth/callback` em *Redirect URLs*.
 4. Em **Project Settings > API**, copie a URL, a chave `anon` e a chave `service_role`.
 

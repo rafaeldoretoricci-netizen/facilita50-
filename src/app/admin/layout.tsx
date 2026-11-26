@@ -7,7 +7,8 @@ const TABS = [
   ["/admin", "Resumo e pagamentos"],
   ["/admin/vitrine", "Vitrine de livros"],
   ["/admin/pedidos", "Pedidos de livros"],
-  ["/admin/conteudos", "Conteúdos dos membros"],
+  ["/admin/cursos", "Cursos e aulas"],
+  ["/admin/conteudos", "Artigos e materiais"],
   ["/admin/assinantes", "Assinantes"],
 ];
 

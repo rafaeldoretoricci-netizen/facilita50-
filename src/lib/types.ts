@@ -38,3 +38,28 @@ export type Content = {
   published: boolean;
   position: number;
 };
+
+export type Course = {
+  id: string;
+  title: string;
+  subtitle: string | null;
+  description: string | null;
+  cover_url: string | null;
+  category: string;
+  level: string | null;
+  featured: boolean;
+  published: boolean;
+  position: number;
+  created_at: string;
+};
+
+export type Lesson = {
+  id: string;
+  course_id: string;
+  title: string;
+  description: string | null;
+  video_url: string | null;
+  file_path: string | null;
+  duration_minutes: number | null;
+  position: number;
+};

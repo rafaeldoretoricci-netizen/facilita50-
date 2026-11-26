@@ -151,3 +151,85 @@ export async function deleteContent(form: FormData) {
   revalidatePath("/membros");
   revalidatePath("/admin/conteudos");
 }
+
+/* ---------- Cursos e aulas ---------- */
+const refreshCourses = () => {
+  revalidatePath("/membros", "layout");
+  revalidatePath("/admin/cursos");
+};
+
+export async function saveCourse(form: FormData) {
+  const sb = await db();
+  const id = str(form.get("id"));
+  const title = String(form.get("title") ?? "").trim();
+  if (!title) return;
+  const row: Record<string, unknown> = {
+    title,
+    subtitle: str(form.get("subtitle")),
+    description: str(form.get("description")),
+    category: str(form.get("category")) ?? "Cursos",
+    level: str(form.get("level")),
+    featured: form.get("featured") === "on",
+  };
+  const cover = str(form.get("cover_url"));
+  if (cover) row.cover_url = cover;
+  if (row.featured) await sb.from("courses").update({ featured: false }).eq("featured", true);
+  if (id) await sb.from("courses").update(row).eq("id", id);
+  else await sb.from("courses").insert(row);
+  refreshCourses();
+}
+
+export async function toggleCourse(form: FormData) {
+  const sb = await db();
+  const id = String(form.get("id"));
+  const field = form.get("field") === "featured" ? "featured" : "published";
+  const value = form.get("value") === "1";
+  if (field === "featured" && value) await sb.from("courses").update({ featured: false }).eq("featured", true);
+  await sb.from("courses").update({ [field]: value }).eq("id", id);
+  refreshCourses();
+}
+
+export async function deleteCourse(form: FormData) {
+  const sb = await db();
+  await sb.from("courses").delete().eq("id", String(form.get("id")));
+  refreshCourses();
+}
+
+export async function addLesson(form: FormData) {
+  const sb = await db();
+  const courseId = String(form.get("course_id"));
+  const title = String(form.get("title") ?? "").trim();
+  if (!title) return;
+  const { count } = await sb.from("lessons").select("id", { count: "exact", head: true }).eq("course_id", courseId);
+  await sb.from("lessons").insert({
+    course_id: courseId,
+    title,
+    description: str(form.get("description")),
+    video_url: str(form.get("video_url")),
+    file_path: str(form.get("file_path")),
+    duration_minutes: num(form.get("duration_minutes")),
+    position: count ?? 0,
+  });
+  refreshCourses();
+}
+
+export async function deleteLesson(form: FormData) {
+  const sb = await db();
+  await sb.from("lessons").delete().eq("id", String(form.get("id")));
+  refreshCourses();
+}
+
+export async function moveLesson(form: FormData) {
+  const sb = await db();
+  const id = String(form.get("id"));
+  const courseId = String(form.get("course_id"));
+  const dir = form.get("dir") === "up" ? -1 : 1;
+  const { data: ls } = await sb.from("lessons").select("id,position").eq("course_id", courseId).order("position");
+  if (!ls) return;
+  const i = ls.findIndex((l) => l.id === id);
+  const j = i + dir;
+  if (i < 0 || j < 0 || j >= ls.length) return;
+  [ls[i], ls[j]] = [ls[j], ls[i]];
+  await Promise.all(ls.map((l, k) => sb.from("lessons").update({ position: k }).eq("id", l.id)));
+  refreshCourses();
+}

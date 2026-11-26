@@ -16,10 +16,11 @@ export default async function Conteudos() {
   return (
     <div style={{ display: "grid", gap: "1.4rem" }}>
       <form action={saveContent} className="card admin-form">
-        <h3 style={{ marginBottom: "1rem" }}>Publicar conteúdo na área de membros</h3>
+        <h3 style={{ marginBottom: ".4rem" }}>Publicar artigo ou material</h3>
+        <p className="hint" style={{ marginBottom: "1rem" }}>Para cursos em vídeo e entrevistas, use a aba “Cursos e aulas”.</p>
         <div className="row2">
           <div className="field"><label htmlFor="kind">Tipo</label>
-            <select id="kind" name="kind" defaultValue="video">
+            <select id="kind" name="kind" defaultValue="artigo">
               {Object.entries(KIND).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
             </select>
           </div>
