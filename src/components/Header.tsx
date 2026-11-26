@@ -12,7 +12,6 @@ export default async function Header() {
             Facilita <span>50+</span>
           </Link>
           <p className="brand-tagline">Educação tecnológica acessível e segura para todas as idades</p>
-          <FontControl />
         </div>
       </div>
       <header className="top site-nav">
@@ -24,6 +23,7 @@ export default async function Header() {
             {profile?.role === "admin" && <Link href="/admin">Painel</Link>}
             {user ? <Link href="/membros">Minha área</Link> : <Link href="/entrar">Entrar</Link>}
           </nav>
+          <FontControl />
         </div>
       </header>
     </>
