@@ -11,12 +11,12 @@ export default async function Header() {
           <Link className="brand-logo" href="/" aria-label="Facilita 50+, página inicial">
             Facilita <span>50+</span>
           </Link>
-          <p className="brand-tagline">Educação, tecnologia acessível e segura</p>
+          <p className="brand-tagline">Educação tecnológica acessível e segura para todas as idades</p>
+          <FontControl />
         </div>
       </div>
       <header className="top site-nav">
         <div className="wrap">
-          <FontControl />
           <nav className="main" aria-label="Seções">
             <Link href="/">Início</Link>
             <Link href="/#livros">Livros</Link>

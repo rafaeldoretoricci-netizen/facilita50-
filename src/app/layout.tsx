@@ -14,13 +14,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${body.variable} ${display.variable} ${book.variable}`}>
+    <html lang="pt-BR" suppressHydrationWarning className={`${body.variable} ${display.variable} ${book.variable}`}>
       <body>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem("f50-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);var f=Number(localStorage.getItem("f50-fs"));if(f)document.documentElement.style.setProperty("--fs",f+"px")}catch(e){}`,
+          }}
+        />
         <Header />
         <main>{children}</main>
         <footer className="foot">
           <div className="wrap">
-            <span>Facilita 50+ · Educação, tecnologia acessível e segura</span>
+            <span>Facilita 50+ · Educação tecnológica acessível e segura para todas as idades</span>
             <span>Compra segura com Mercado Pago</span>
           </div>
         </footer>

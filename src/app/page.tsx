@@ -37,11 +37,11 @@ export default async function Home() {
           <div className="lp-author-photo">
             <div className="lp-halo" aria-hidden="true" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/img/j-ricardo-temoteo-recorte.webp" alt="J. Ricardo Temóteo, criador da Facilita 50+" width={512} height={900} />
+            <img src="/img/j-ricardo-temoteo-recorte.webp" alt="José Ricardo Temóteo, criador da Facilita 50+" width={512} height={900} />
           </div>
           <div className="lp-author-text">
             <span className="lp-eyebrow">Criador da Comunidade Facilita 50+</span>
-            <h1>Olá, eu sou <em>J. Ricardo Temóteo</em>.</h1>
+            <h1>Olá, eu sou <em>José Ricardo Temóteo</em>.</h1>
             <p className="lp-lead">Há quase trinta anos ajudo pessoas com mais de 50 anos a usar a tecnologia com confiança, calma e alegria.</p>
             <p>Sou poeta, publicitário e pedagogo, com especialização em Gerontologia. Escrevo desde menino: aos treze anos imaginei em versos um homem de cabelos prateados que procurava a própria história. Hoje reencontro aquelas palavras com novos sentidos.</p>
             <p>Criei o Método Néctar de Letramento Digital, apresentado num congresso internacional de Universidades da Terceira Idade em Québec, no Canadá. Ensinei em instituições como a Escola Superior do Ministério Público da União, o Governo do Ceará e a Prefeitura de Fortaleza, e aprendi com cada aluno que a educação transforma quem aprende e quem ensina.</p>
