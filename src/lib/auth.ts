@@ -15,15 +15,7 @@ export async function getSession() {
   return { user, profile, subscription };
 }
 
-/** Sessão de demonstração, usada só enquanto o Supabase não está configurado. */
-const DEMO_SESSION = {
-  user: { id: "demo", email: "demo@facilita50.com.br" },
-  profile: { full_name: "Visitante", role: "member" },
-  subscription: { status: "active" },
-};
-
 export async function requireMember() {
-  if (!hasSupabase) return DEMO_SESSION as unknown as Awaited<ReturnType<typeof getSession>>;
   const s = await getSession();
   if (!s.user) redirect("/entrar?voltar=/membros");
   const isAdmin = s.profile?.role === "admin";

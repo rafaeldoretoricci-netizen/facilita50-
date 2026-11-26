@@ -2,19 +2,12 @@ import Link from "next/link";
 import CourseTile from "@/components/CourseTile";
 import Rail from "@/components/Rail";
 import { requireMember } from "@/lib/auth";
-import { hasSupabase } from "@/lib/env";
 import { getBooks } from "@/lib/data";
 import { lessonWord, loadCourses } from "@/lib/members";
 import { supabaseServer } from "@/lib/supabase/server";
 import type { Content } from "@/lib/types";
 
 export const metadata = { title: "Área de membros" };
-
-const DEMO_ARTICLES = [
-  { id: "a1", kind: "artigo", title: "5 sinais de que uma mensagem é golpe", description: "Aprenda a desconfiar na hora certa.", duration_minutes: 4, thumbnail_url: null },
-  { id: "a2", kind: "artigo", title: "Como aumentar a letra do celular", description: "Passo a passo para Android e iPhone.", duration_minutes: 3, thumbnail_url: null },
-  { id: "a3", kind: "artigo", title: "Aprender depois dos 50 faz bem ao cérebro", description: "O que a ciência diz sobre aprender sempre.", duration_minutes: 6, thumbnail_url: null },
-] as unknown as Content[];
 
 const grad = ["#5a2a44", "#1f5f8b", "#2e6b4f", "#8c3b4f", "#b0612a", "#3a2a4f"];
 
@@ -29,9 +22,7 @@ export default async function Membros() {
   const [courses, books, extra] = await Promise.all([
     loadCourses(user!.id),
     getBooks(),
-    hasSupabase
-      ? supabaseServer().then((sb) => sb.from("contents").select("*").eq("published", true).in("kind", ["artigo", "livro"]).order("created_at", { ascending: false })).then((r) => r.data)
-      : Promise.resolve(DEMO_ARTICLES),
+    supabaseServer().then((sb) => sb.from("contents").select("*").eq("published", true).in("kind", ["artigo", "livro"]).order("created_at", { ascending: false })).then((r) => r.data),
   ]);
   const featured = courses.find((c) => c.featured) ?? courses[0];
   const watching = courses.filter((c) => c.lastActivity && c.done < c.lessons.length).sort((a, b) => (b.lastActivity! > a.lastActivity! ? 1 : -1));

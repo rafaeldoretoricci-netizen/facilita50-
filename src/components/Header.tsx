@@ -12,9 +12,8 @@ export default async function Header() {
           <Link href="/">Início</Link>
           <Link href="/#livros">Livros</Link>
           <Link href="/#comunidade">Comunidade</Link>
-          <Link href="/membros">Área de membros</Link>
           {profile?.role === "admin" && <Link href="/admin">Painel</Link>}
-          {user ? <Link href="/minha-conta">Minha conta</Link> : <Link href="/entrar">Entrar</Link>}
+          {user ? <Link href="/membros">Minha área</Link> : <Link href="/entrar">Entrar</Link>}
         </nav>
         <FontControl />
       </div>

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireMember } from "@/lib/auth";
-import { hasSupabase } from "@/lib/env";
 import { youtubeId } from "@/lib/format";
 import { supabaseServer } from "@/lib/supabase/server";
 import type { Content } from "@/lib/types";
@@ -11,15 +10,6 @@ export const dynamic = "force-dynamic";
 export default async function Conteudo({ params }: { params: Promise<{ id: string }> }) {
   await requireMember();
   const { id } = await params;
-  if (!hasSupabase) {
-    return (
-      <section className="checkout"><div className="wrap prose">
-        <Link href="/membros">← Voltar para a área de membros</Link>
-        <h2>Artigo de exemplo</h2>
-        <p>Na versão publicada, aqui aparece o texto completo do artigo, com letras grandes e leitura confortável.</p>
-      </div></section>
-    );
-  }
   const sb = await supabaseServer();
   const { data } = await sb.from("contents").select("*").eq("id", id).maybeSingle();
   const c = data as Content | null;

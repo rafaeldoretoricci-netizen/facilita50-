@@ -1,7 +1,6 @@
 import Link from "next/link";
 import CourseTile from "@/components/CourseTile";
 import { requireMember } from "@/lib/auth";
-import { hasSupabase } from "@/lib/env";
 import { loadCourses } from "@/lib/members";
 
 export const metadata = { title: "Todos os cursos" };

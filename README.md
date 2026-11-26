@@ -11,7 +11,7 @@ Plataforma de livros, cursos e comunidade para o público 50+, de J. Ricardo Tem
 
 Tecnologia: Next.js 16 (hospedado na Vercel), Supabase (login, banco de dados e arquivos) e Mercado Pago.
 
-Sem as chaves configuradas, o site abre em modo demonstração: a página inicial, a loja e a área de membros mostram conteúdos de exemplo, mas compras, cadastro e o painel ficam desativados.
+Sem as chaves configuradas, o site abre em modo demonstração: a página inicial e a loja mostram os livros de exemplo, mas compras, cadastro, área de membros e painel ficam desativados. A área de membros só abre para quem entra com login e senha e tem assinatura ativa.
 
 ## Como colocar no ar
 
